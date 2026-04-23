@@ -1,0 +1,806 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  .kd-root {
+    background: #0a0a0a;
+    color: #f0ece2;
+    font-family: 'Space Grotesk', sans-serif;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kd-hero {
+    background: #0a0a0a;
+    padding: 48px 32px 32px;
+    border-bottom: 1px solid #222;
+    position: relative;
+  }
+
+  .kd-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FFD700, #FF6B35, #E8001D, #FFD700);
+  }
+
+  .kd-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #FFD700;
+    margin-bottom: 16px;
+  }
+
+  .kd-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 10vw, 88px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    color: #f0ece2;
+    margin-bottom: 8px;
+  }
+
+  .kd-headline .accent { color: #FFD700; }
+  .kd-headline .red { color: #E8001D; }
+
+  .kd-subhead {
+    font-size: 15px;
+    color: #888;
+    max-width: 580px;
+    line-height: 1.6;
+    margin-top: 12px;
+  }
+
+  .kd-subhead strong { color: #f0ece2; }
+
+  .kd-bottle-strip {
+    display: flex;
+    gap: 8px;
+    margin-top: 24px;
+    align-items: center;
+  }
+
+  .kd-bottle {
+    width: 28px;
+    height: 48px;
+    border: 2px solid #FFD700;
+    border-radius: 4px 4px 6px 6px;
+    position: relative;
+    opacity: 0.4;
+  }
+  .kd-bottle.lit { opacity: 1; background: #FFD70022; }
+  .kd-bottle::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 6px;
+    width: 12px;
+    height: 8px;
+    border: 2px solid #FFD700;
+    border-radius: 2px;
+    background: #0a0a0a;
+  }
+
+  .kd-section {
+    padding: 32px 32px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .kd-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 20px;
+  }
+
+  .kd-problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .kd-problem-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kd-problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .kd-problem-card.p1::before { background: #E8001D; }
+  .kd-problem-card.p2::before { background: #FFD700; }
+  .kd-problem-card.p3::before { background: #FF6B35; }
+  .kd-problem-card.p4::before { background: #7B4FFF; }
+
+  .kd-problem-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    opacity: 0.08;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    color: #f0ece2;
+  }
+
+  .kd-problem-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .p1 .kd-problem-tag { background: #E8001D22; color: #ff5555; }
+  .p2 .kd-problem-tag { background: #FFD70022; color: #FFD700; }
+  .p3 .kd-problem-tag { background: #FF6B3522; color: #FF9A6C; }
+  .p4 .kd-problem-tag { background: #7B4FFF22; color: #a882ff; }
+
+  .kd-problem-title {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    color: #f0ece2;
+  }
+
+  .kd-problem-body {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.65;
+  }
+
+  .kd-problem-body strong { color: #bbb; }
+
+  .kd-stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .kd-stat {
+    background: #0d0d0d;
+    border: 1px solid #1e1e1e;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .kd-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    line-height: 1;
+    color: #FFD700;
+  }
+
+  .kd-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  .kd-roast-quote {
+    background: #0d0d0d;
+    border-left: 3px solid #E8001D;
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #f0ece2;
+    line-height: 1.3;
+  }
+
+  .kd-roast-quote .fine {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: #666;
+    display: block;
+    margin-top: 8px;
+  }
+
+  .kd-chart-bar-wrap {
+    margin-top: 16px;
+  }
+
+  .kd-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .kd-bar-label {
+    font-size: 12px;
+    color: #888;
+    width: 120px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .kd-bar-track {
+    flex: 1;
+    background: #1a1a1a;
+    border-radius: 3px;
+    height: 22px;
+    overflow: hidden;
+  }
+
+  .kd-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    transition: width 1.2s cubic-bezier(.22,.61,.36,1);
+  }
+
+  .bar-red { background: #E8001D; color: #fff; }
+  .bar-yellow { background: #FFD700; color: #0a0a0a; }
+  .bar-orange { background: #FF6B35; color: #fff; }
+  .bar-gray { background: #333; color: #888; }
+  .bar-purple { background: #7B4FFF; color: #fff; }
+
+  .kd-pitch-section {
+    background: #0d0d0d;
+    border: 1px solid #1e2e1e;
+    border-radius: 12px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kd-pitch-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00FF87, #00C3FF);
+  }
+
+  .kd-pitch-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    color: #00FF87;
+    margin-bottom: 8px;
+  }
+
+  .kd-pitch-body {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .kd-pitch-body strong { color: #c0c0c0; }
+
+  .kd-ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .kd-idea {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 14px;
+  }
+
+  .kd-idea-icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .kd-idea-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ddd;
+    margin-bottom: 4px;
+  }
+
+  .kd-idea-desc {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .kd-cta-block {
+    background: #FFD700;
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .kd-cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 2px;
+    color: #0a0a0a;
+    line-height: 1;
+  }
+
+  .kd-cta-sub {
+    font-size: 14px;
+    color: #3a3a00;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+
+  .kd-cta-btn {
+    margin-top: 16px;
+    background: #0a0a0a;
+    color: #FFD700;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .kd-divider {
+    height: 1px;
+    background: #1a1a1a;
+    margin: 0 32px;
+  }
+
+  .kd-vs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .kd-vs-card {
+    background: #111;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .kd-vs-card.bad { border: 1px solid #3a1a1a; }
+  .kd-vs-card.good { border: 1px solid #1a3a2a; }
+
+  .kd-vs-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .bad .kd-vs-header { color: #E8001D; }
+  .good .kd-vs-header { color: #00FF87; }
+
+  .kd-vs-item {
+    font-size: 12px;
+    color: #777;
+    padding: 5px 0;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.4;
+  }
+
+  .kd-vs-item:last-child { border-bottom: none; }
+
+  .bad .kd-vs-item::before { content: '✕'; color: #E8001D; font-size: 11px; flex-shrink: 0; }
+  .good .kd-vs-item::before { content: '✓'; color: #00FF87; font-size: 11px; flex-shrink: 0; }
+
+  .kd-anushka-card {
+    background: #111;
+    border: 1px solid #2a2a1a;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-top: 24px;
+  }
+
+  .kd-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD700, #FF6B35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: #0a0a0a;
+    flex-shrink: 0;
+  }
+
+  .kd-avatar-info h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #f0ece2;
+    margin-bottom: 2px;
+  }
+
+  .kd-avatar-info p {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .kd-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .kd-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: #1a1a0d;
+    color: #FFD700;
+    border: 1px solid #FFD70033;
+  }
+
+  .kd-footer {
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+  }
+
+  .kd-footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #333;
+    text-transform: uppercase;
+  }
+
+  .kd-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00FF87;
+    animation: pulse 2s infinite;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .kd-scroll-hint {
+    position: absolute;
+    bottom: 16px;
+    right: 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #333;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+</style>
+
+<div class="kd-root">
+  <div class="kd-hero">
+    <div class="kd-eyebrow">⚠ Unsolicited but necessary intervention • Keventers Marketing Audit 2026</div>
+    <div class="kd-headline">
+      KRISHNANK,<br>
+      <span class="accent">WE NEED</span><br>
+      <span class="red">TO TALK.</span>
+    </div>
+    <p class="kd-subhead">
+      You asked for someone <strong>"crazy."</strong> Here's a 100-year-old brand that redefined Indian F&B,
+      and a marketing strategy that is slowly un-doing it. Let's fix that. This deck will roast you. And then save you.
+    </p>
+    <div class="kd-bottle-strip">
+      <div class="kd-bottle lit"></div>
+      <div class="kd-bottle lit"></div>
+      <div class="kd-bottle lit"></div>
+      <div class="kd-bottle"></div>
+      <div class="kd-bottle"></div>
+      <span style="font-family:'DM Mono',monospace;font-size:10px;color:#555;letter-spacing:2px;margin-left:8px;">3/5 BOTTLES FULL. TIME TO REFILL THE STRATEGY.</span>
+    </div>
+    <div class="kd-scroll-hint">scroll to feel the burn ↓</div>
+  </div>
+
+  <div class="kd-section">
+    <div class="kd-section-label">// 01 - the hard numbers</div>
+    <div class="kd-stat-strip">
+      <div class="kd-stat">
+        <div class="kd-stat-num">100</div>
+        <div class="kd-stat-label">Years of legacy</div>
+      </div>
+      <div class="kd-stat">
+        <div class="kd-stat-num" style="color:#E8001D">300+</div>
+        <div class="kd-stat-label">Franchise outlets</div>
+      </div>
+      <div class="kd-stat">
+        <div class="kd-stat-num" style="color:#FF6B35">57%</div>
+        <div class="kd-stat-label">Revenue from 18-30s</div>
+      </div>
+      <div class="kd-stat">
+        <div class="kd-stat-num" style="color:#7B4FFF">0</div>
+        <div class="kd-stat-label">Unique brand hooks in 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kd-section">
+    <div class="kd-section-label">// 02 - the roast (because you deserve it)</div>
+
+    <div class="kd-roast-quote">
+      "YOU ARE SELLING THE BOTTLE. NOT THE BRAND."
+      <span class="fine">Keventers blew up because of the glass bottle. Instagrammable, vintage, collectible. But bottles don't repeat purchase. Stories do. And right now, Keventers has no story a 22-year-old can borrow.</span>
+    </div>
+
+    <div class="kd-roast-quote" style="border-left-color:#FFD700">
+      "SAME DIALOGUE. THREE REELS. MILLIONS OF VIEWS. ZERO MEMORY."
+      <span class="fine">The Dani + Aamir collab formula worked,once. Virality without brand recall is just free entertainment for your competitors. Views ≠ identity. You got the numbers. But what did they remember about Keventers 48 hours later?</span>
+    </div>
+
+    <div class="kd-roast-quote" style="border-left-color:#FF6B35">
+      "GEN Z CHECKS INGREDIENTS. YOU STILL USE FRUIT SYRUP."
+      <span class="fine">In 2024, Keventers' CEO admitted expanding to "healthier options." But your Instagram says nothing about it. Gen Z is reading labels while you're posting vibes. That is a brand-product disconnect you can't influencer-collab your way out of.</span>
+    </div>
+
+    <div class="kd-roast-quote" style="border-left-color:#7B4FFF">
+      "MR. K IS A MASCOT. NOT A MOVEMENT."
+      <span class="fine">You tried to build a mascot. KFC has the Colonel. You have an old man nobody under 25 knows about. The energy got killed before it could travel. What happened to Mr. K?</span>
+    </div>
+  </div>
+
+  <div class="kd-divider"></div>
+
+  <div class="kd-section">
+    <div class="kd-section-label">// 03 - where your content budget is going vs. where it should go</div>
+
+    <div class="kd-chart-bar-wrap" id="bars">
+      <div class="kd-bar-row">
+        <div class="kd-bar-label">Trend collabs</div>
+        <div class="kd-bar-track"><div class="kd-bar-fill bar-red" style="width:0%" data-w="72%">72% - trend chasing</div></div>
+      </div>
+      <div class="kd-bar-row">
+        <div class="kd-bar-label">Franchise stories</div>
+        <div class="kd-bar-track"><div class="kd-bar-fill bar-gray" style="width:0%" data-w="8%">8% - nearly invisible</div></div>
+      </div>
+      <div class="kd-bar-row">
+        <div class="kd-bar-label">Heritage/nostalgia</div>
+        <div class="kd-bar-track"><div class="kd-bar-fill bar-gray" style="width:0%" data-w="10%">10% - underused gold</div></div>
+      </div>
+      <div class="kd-bar-row">
+        <div class="kd-bar-label">Community/UGC</div>
+        <div class="kd-bar-track"><div class="kd-bar-fill bar-yellow" style="width:0%" data-w="6%">6% - untapped</div></div>
+      </div>
+      <div class="kd-bar-row">
+        <div class="kd-bar-label">Product education</div>
+        <div class="kd-bar-track"><div class="kd-bar-fill bar-purple" style="width:0%" data-w="4%">4% - nonexistent</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kd-section">
+    <div class="kd-section-label">// 04 - what you're doing vs. what actually works</div>
+    <div class="kd-vs-grid">
+      <div class="kd-vs-card bad">
+        <div class="kd-vs-header">current playbook</div>
+        <div class="kd-vs-item">Renting viral creators for 1-time dopamine hits</div>
+        <div class="kd-vs-item">Same scripted dialogue across 3 reels - same "hook," same drop</div>
+        <div class="kd-vs-item">Trending audio that expires in 2 weeks</div>
+        <div class="kd-vs-item">No clear brand voice, just vibes</div>
+        <div class="kd-vs-item">Fan pages doing more creative work than the brand itself</div>
+        <div class="kd-vs-item">Zero SEO, zero website intent, zero owned community</div>
+      </div>
+      <div class="kd-vs-card good">
+        <div class="kd-vs-header">what actually converts</div>
+        <div class="kd-vs-item">Micro-creators with genuine bottle/milkshake culture fit</div>
+        <div class="kd-vs-item">Content that repeats a feeling, not a format</div>
+        <div class="kd-vs-item">Thursday campaign- you had it. Bring it back, harder.</div>
+        <div class="kd-vs-item">A Keventers voice so distinct people can smell the shake</div>
+        <div class="kd-vs-item">UGC campaigns, the DIY bottle crowd is your army</div>
+        <div class="kd-vs-item">Heritage storytelling to Gen Z who love "quiet luxury" roots</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kd-section">
+    <div class="kd-section-label">// 05 - the actual problems (research-backed, not vibes)</div>
+    <div class="kd-problem-grid">
+      <div class="kd-problem-card p1">
+        <div class="kd-problem-number">01</div>
+        <div class="kd-problem-tag">🔴 Critical</div>
+        <div class="kd-problem-title">You're building awareness, not loyalty</div>
+        <div class="kd-problem-body">
+          Keventers' product is not exceptional - <strong>customers themselves say the shake tastes like syrup.</strong> 
+          Your USP was always the bottle + experience, never the milkshake. 
+          That is fine, but it means you need emotional loyalty marketing, not awareness campaigns. 
+          Every reel you run today drives someone to the store once. 
+          You need to make them come back every Thursday.
+        </div>
+      </div>
+      <div class="kd-problem-card p2">
+        <div class="kd-problem-number">02</div>
+        <div class="kd-problem-tag">⚠ Structural</div>
+        <div class="kd-problem-title">300+ franchise outlets, 0 unified brand narrative</div>
+        <div class="kd-problem-body">
+          With a franchise model, <strong>each outlet is essentially its own island.</strong> 
+          Different vibes, different quality perception, different social presence. 
+          When your franchise in Chandigarh shows a bad experience on Instagram, 
+          that is a Keventers wound that HQ marketing has to heal without knowing it even happened. 
+          There is no playbook for this. There should be.
+        </div>
+      </div>
+      <div class="kd-problem-card p3">
+        <div class="kd-problem-number">03</div>
+        <div class="kd-problem-tag">⚡ Opportunity Cost</div>
+        <div class="kd-problem-title">You have 100 years of story and you're not using it</div>
+        <div class="kd-problem-body">
+          Edward Keventer arrived in 1925. Supplied to the Indian Army. Became a household name across pre-partition Delhi. 
+          <strong>Gen Z is obsessed with brand heritage right now</strong> - "quiet legacy" is literally trending. 
+          And you're doing trend collabs instead of telling people your shake was older than India's independence. 
+          That is a criminal waste of cultural capital.
+        </div>
+      </div>
+      <div class="kd-problem-card p4">
+        <div class="kd-problem-number">04</div>
+        <div class="kd-problem-tag">🧬 Identity Crisis</div>
+        <div class="kd-problem-title">Gen Z is health-conscious. Your product isn't. Nobody's talking about it.</div>
+        <div class="kd-problem-body">
+          Gen Z reads ingredients. <strong>They know it's syrup.</strong> 
+          Your CEO promised transparency and healthier options in 2024, but where is that on your feed? 
+          Either lean into "guilty pleasure, no apologies" with full confidence, 
+          or pivot the narrative to real ingredients. 
+          Silence on this is the worst strategy. Brands that dodge this question lose Gen Z permanently.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kd-section">
+    <div class="kd-section-label">// 06 - the pitch: here's how i fix it</div>
+    <div class="kd-pitch-section">
+      <div class="kd-pitch-title">THE "CRAZYYY" MARKETING PLAN</div>
+      <div class="kd-pitch-body">
+        You said "do something crazy." Here is crazy that also <strong>makes business sense</strong> - 
+        because crazy without ROI is just a reel nobody remembers. Everything below can be tracked, 
+        tested, and optimised. Because I have done exactly this, cut campaign costs by <strong>47%</strong> 
+        negotiating with creators, and driven outreach that touched <strong>1,000+ institutions.</strong>
+      </div>
+      <div class="kd-ideas-grid">
+        <div class="kd-idea">
+          <span class="kd-idea-icon">🍶</span>
+          <div class="kd-idea-title">Bring "Keventers on a Thursday" BACK, but make it a movement</div>
+          <div class="kd-idea-desc">Weekly drops. Creator collabs tied to Thursday. A Spotify playlist. Make the day a ritual, not a discount.</div>
+        </div>
+        <div class="kd-idea">
+          <span class="kd-idea-icon">🏛️</span>
+          <div class="kd-idea-title">"Since 1925" heritage series</div>
+          <div class="kd-idea-desc">Black-and-white reel format. "This shake was here before India was free." Gen Z eats heritage. Feed it to them.</div>
+        </div>
+        <div class="kd-idea">
+          <span class="kd-idea-icon">📦</span>
+          <div class="kd-idea-title">UGC bottle art - industrialised</div>
+          <div class="kd-idea-desc">The DIY bottle community already exists. Build a structured campaign with real prizes. Your customers are your best marketers. Hire me to run it.</div>
+        </div>
+        <div class="kd-idea">
+          <span class="kd-idea-icon">🤝</span>
+          <div class="kd-idea-title">Micro-creator partnerships - at 47% lower cost</div>
+          <div class="kd-idea-desc">I don't hire celebrities. I negotiate with creators who love the product. That is how I cut ₹45K to ₹36.9K per campaign. Imagine that at 300 franchise outlets.</div>
+        </div>
+        <div class="kd-idea">
+          <span class="kd-idea-icon">📍</span>
+          <div class="kd-idea-title">Franchise social playbook</div>
+          <div class="kd-idea-desc">Every franchise posts differently. I will build a unified content SOP so every Keventers outlet feels like the same brand. Because right now - it doesn't.</div>
+        </div>
+        <div class="kd-idea">
+          <span class="kd-idea-icon">🧪</span>
+          <div class="kd-idea-title">Ingredient transparency campaign</div>
+          <div class="kd-idea-desc">"Yes, we use syrup. We have used it since 1925. And it tastes like nothing else." Own your truth before someone else weaponises it. That is not a PR risk, it is a brand personality.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kd-anushka-card">
+      <div class="kd-avatar">AP</div>
+      <div class="kd-avatar-info">
+        <h4>Anushka Pandey, not asking, earning it</h4>
+        <p>
+          Ran outreach for 1,000+ institutions. Cut campaign costs by 47% through creator negotiation. 
+          Built onboarding workflows for 10+ creators. Managed 500+ attendee events from enrollment to completion. 
+          Knows SOPs, KPIs, and how to talk to both brands and people.
+          Currently at TIET, studying CS + Business Systems, which means I understand the data behind the "vibes."
+        </p>
+        <div class="kd-tag-list">
+          <span class="kd-tag">47% cost reduction</span>
+          <span class="kd-tag">creator negotiation</span>
+          <span class="kd-tag">SOP design</span>
+          <span class="kd-tag">influencer lifecycle</span>
+          <span class="kd-tag">1000+ institutions reached</span>
+          <span class="kd-tag">data → action</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 0 32px 32px">
+    <div class="kd-cta-block">
+      <div class="kd-cta-title">KRISHNANK. BOW DOWN. HIRE ME.</div>
+      <div class="kd-cta-sub">
+        Or don't - and keep watching fan pages do better marketing than your ₹XX lakh campaign.
+      </div>
+      <button class="kd-cta-btn" onclick="sendPrompt('Anushka has applied for the Keventers internship with a full roast + strategy pitch. What do you think of her approach and what questions would Krishnank have for her?')">Ask Claude: Would Krishnank hire her? ↗</button>
+    </div>
+  </div>
+
+  <div class="kd-footer">
+    <span class="kd-footer-text"><span class="kd-pulse"></span>Live audit - april 2026</span>
+    <span class="kd-footer-text">anushkapandeywork0308@gmail.com</span>
+  </div>
+</div>
+
+
+
+<script>
+function sendPrompt() {
+  const text = "Anushka has applied for the Keventers internship with a full roast + strategy pitch. What do you think of her approach and what questions would Krishnank have for her?";
+  
+  // Adding the proper query prefix '?q='
+  const url = "https://claude.ai/new?q=" + encodeURIComponent(text);
+  
+  window.open(url, "_blank");
+}
+</script>
+
+<script>
+  setTimeout(() => {
+    const fills = document.querySelectorAll('.kd-bar-fill[data-w]');
+    fills.forEach(el => {
+      el.style.width = el.getAttribute('data-w');
+    });
+  }, 600);
+  
+</script>
